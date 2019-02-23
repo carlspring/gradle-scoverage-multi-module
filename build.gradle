@@ -1,11 +1,10 @@
 buildscript {
   repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "gradle.plugin.org.scoverage:gradle-scoverage:2.5.0"
+//    maven {
+//      url "https://plugins.gradle.org/m2/"
+//    }
+    mavenLocal()
+    flatDir dirs: "$rootDir/lib"
   }
 }
 
@@ -15,10 +14,14 @@ plugins {
 }
 
 repositories {
+  flatDir dirs: "$rootDir/lib"
+  mavenLocal()
   jcenter()
 }
 
 dependencies {
+  compile files('lib/gradle-scoverage-2.5.0.jar')
+
   compile 'org.scala-lang:scala-library:2.11.8'
 
   testCompile 'junit:junit:4.12'
@@ -29,6 +32,8 @@ dependencies {
 
 allprojects {
   repositories {
+    flatDir dirs: "$rootDir/lib"
+    mavenLocal()
     mavenCentral()
   }
 
@@ -36,6 +41,8 @@ allprojects {
   apply plugin: 'org.scoverage'
 
   dependencies {
+    compile files('lib/gradle-scoverage-2.5.0.jar')
+
     compile 'org.scala-lang:scala-library:2.11.8'
     scoverage 'org.scoverage:scalac-scoverage-plugin_2.11:1.1.0', 'org.scoverage:scalac-scoverage-runtime_2.11:1.1.0'
     testCompile 'junit:junit:4.12'
